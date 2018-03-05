@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://assets/bonuses.png" type="Texture" id=1]
-[ext_resource path="res://assets/bonuses_shine.png" type="Texture" id=2]
-[ext_resource path="res://code/randomize_animation.gd" type="Script" id=3]
+[ext_resource path="res://code/bonuses.gd" type="Script" id=1]
+[ext_resource path="res://assets/bonuses.png" type="Texture" id=2]
+[ext_resource path="res://assets/bonuses_shine.png" type="Texture" id=3]
+[ext_resource path="res://code/randomize_animation.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 11.4977
+height = 14.5837
 
 [sub_resource type="Animation" id=1]
 
@@ -21,28 +28,36 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
-[node name="bonus" type="Control"]
+[node name="bonus" type="KinematicBody2D"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -12.0
-margin/top = -6.0
-margin/right = 12.0
-margin/bottom = 8.0
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.02957, 0, 0, 0.421304, 0.0772619, -0.136209 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+speed = 96
+
+[node name="collision" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 0.0772619, -0.136209 )
+transform/scale = Vector2( 1.02957, 0.421304 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
 
 [node name="body" type="Sprite" parent="."]
 
-texture = ExtResource( 1 )
-centered = false
+texture = ExtResource( 2 )
 vframes = 2
 hframes = 3
 
 [node name="shine" type="Sprite" parent="."]
 
-texture = ExtResource( 2 )
-centered = false
+texture = ExtResource( 3 )
 vframes = 3
 hframes = 3
 frame = 6
@@ -57,6 +72,6 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "idle"
-script/script = ExtResource( 3 )
+script/script = ExtResource( 4 )
 
 

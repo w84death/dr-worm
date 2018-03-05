@@ -25,9 +25,4 @@ func _fixed_process(delta):
 		if diff > 2: direction.x = 1
 	
 	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
-	
 	move(velocity * delta)
-	
-	if get_pos().x < 4: set_pos(Vector2(196, get_pos().y))
-	if get_pos().x >196: set_pos(Vector2(4, get_pos().y))
-

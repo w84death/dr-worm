@@ -12,18 +12,14 @@ func _ready():
 	
 func _fixed_process(delta):
 	var direction = Vector2(0,0)
-
-	if Input.is_action_pressed("ui_left"):
-		direction.x = -1
-	if Input.is_action_pressed("ui_right"):
-		direction.x = 1
+	
+	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("joy_left"):
+		if get_pos().x > 4: direction.x = -1
+	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("joy_right"):
+		if get_pos().x < 196: direction.x = 1
 	
 	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
-
 	move(velocity * delta)
 	
-	if get_pos().x < 4: set_pos(Vector2(196, get_pos().y))
-	if get_pos().x >196: set_pos(Vector2(4, get_pos().y))
-		
 	if is_colliding():
 		print('colliding')

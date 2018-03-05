@@ -33,9 +33,10 @@ shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
+one_way_collision/direction = Vector2( 0, 1 )
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-speed = 32
+speed = 96
 
 [node name="collision" type="CollisionShape2D" parent="."]
 

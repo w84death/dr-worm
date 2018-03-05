@@ -43,8 +43,13 @@ func init_game():
 	extend_player_body()
 	extend_player_body()
 	extend_player_body()
-	extend_player_body()
-	extend_player_body()
+	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
@@ -67,5 +72,12 @@ func extend_player_body():
 	
 func spawn_enemy():
 	var new_enemy = scenes.enemy.instance()
-	new_enemy.set_pos(Vector2(32 + randi()%(CONFIG.WIDTH-16), -16 - randi()%32))
+	new_enemy.set_pos(Vector2(32 + randi()%(CONFIG.WIDTH-16), -16 - randi()%128))
+	new_enemy.set_game_ptr(self)
 	ptr.terrain.add_child(new_enemy)
+	if randi()%10<5: spawn_bonus()
+	
+func spawn_bonus():
+	var new_bonus = scenes.bonus.instance()
+	new_bonus.set_pos(Vector2(32 + randi()%(CONFIG.WIDTH-16), -16 - randi()%128))
+	ptr.terrain.add_child(new_bonus)

@@ -7,6 +7,8 @@ export var speed = 96
 var velocity = Vector2(0, speed)
 var ptr_game = null
 
+onready var ptr_body = get_node("body")
+
 const CONFIG = {
 	WIDTH = 200,
 	HEIGHT = 150,
@@ -14,10 +16,15 @@ const CONFIG = {
 	VERSION = '0.3'}
 	
 func _ready():
+	randomize()
+	set_random_bonus()
 	set_fixed_process(true)
 
 func set_game_ptr(ptr):
 	 ptr_game = ptr
+
+func set_random_bonus():
+	ptr_body.set_frame(int(randi()%6))
 	
 func _fixed_process(delta):
 	move(velocity * delta)
@@ -27,4 +34,4 @@ func _fixed_process(delta):
 	if is_colliding():
 		hide()
 		queue_free()
-		ptr_game.spawn_enemy()
+		#ptr_game.spawn_enemy()
