@@ -26,3 +26,6 @@ func _fixed_process(delta):
 	
 	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
 	move(velocity * delta)
+
+func get_parent():
+	return ptr_parent

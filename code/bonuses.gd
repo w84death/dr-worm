@@ -4,6 +4,7 @@
 # http://p1x.in | krzysztofjankowski.com
 
 export var speed = 96
+export var bonus_type = 0
 var velocity = Vector2(0, speed)
 var ptr_game = null
 
@@ -26,6 +27,7 @@ func _fixed_process(delta):
 	if get_pos().y > 150: set_pos(Vector2(32 + randi()%(Globals.get("CONFIG/WIDTH")-16), -8 - randi()%32))
 
 	if is_colliding():
+		get_collider().set_bonus(bonus_type)
+		ptr_game.spawn_bonus()
 		hide()
 		queue_free()
-		#ptr_game.spawn_enemy()

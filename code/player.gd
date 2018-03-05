@@ -6,7 +6,6 @@
 var velocity = Vector2(0,0)
 var smoothness = 0.5
 var speed = 200
-var health = 10
 var ptr_game = null
 
 func _ready():
@@ -27,5 +26,7 @@ func _fixed_process(delta):
 	move(velocity * delta)
 	
 func hit():
-	health -= 1
-	if health < 1: ptr_game.game_over()
+	ptr_game.shorten_player_body()
+
+func set_bonus(type):
+	ptr_game.extend_player_body()

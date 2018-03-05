@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://game_over.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[node name="game_over" type="Panel"]
+
+rect/min_size = Vector2( 128, 64 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 36.0
+margin/top = 43.0
+margin/right = 164.0
+margin/bottom = 107.0
+
+[node name="menu" type="VButtonArray" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 6.0
+margin/right = 8.0
+margin/bottom = 8.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/selected = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/button_separator = 8
+flat = true
+button/count = 3
+button/min_button_size = -1.0
+button/align = 1
+button/0/text = "PLAY AGAIN"
+button/0/tooltip = ""
+button/0/icon = null
+button/1/text = "CHOOSE MAP"
+button/1/tooltip = ""
+button/1/icon = null
+button/2/text = "< MENU"
+button/2/tooltip = ""
+button/2/icon = null
+button/selected = 0
+script/script = ExtResource( 2 )
+
+[node name="title" type="Panel" parent="."]
+
+rect/min_size = Vector2( 96, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 16.0
+margin/top = -26.0
+margin/right = 112.0
+margin/bottom = -2.0
+
+[node name="game over" type="Label" parent="title"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 1
+text = "GAME OVER"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="button_selected" from="menu" to="menu" method="_on_menu_button_selected"]
+
+[connection signal="input_event" from="menu" to="menu" method="_on_menu_input_event"]
+
+

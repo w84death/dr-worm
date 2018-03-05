@@ -38,20 +38,15 @@ func init_game():
 	set_map_type(Globals.get("GAME/MAP_TYPE"))
 	spawn_player(Globals.get("CONFIG/HALF_WIDTH"), Globals.get("CONFIG/HEIGHT") - 48)
 	extend_player_body()
-	extend_player_body()
-	extend_player_body()
-	extend_player_body()
-	extend_player_body()
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
-	spawn_enemy()
-	spawn_enemy()
-	spawn_enemy()
-	spawn_enemy()
+	spawn_bonus()
+	spawn_bonus()
+	spawn_bonus()
 
 func set_map_type(type):
 	var new_terrain 
@@ -75,17 +70,25 @@ func extend_player_body():
 	new_body.decrese_speed(length*10)
 	ptr.terrain.add_child(new_body)
 	ptr.player_last_body = new_body
+
+func shorten_player_body():
+	length -= 1
+	var recycle = ptr.player_last_body
+	ptr.player_last_body = ptr.player_last_body.get_parent()
+	recycle.hide()
+	recycle.queue_free()
+	if length < 0: game_over()
 	
 func spawn_enemy():
 	var new_enemy = scenes.enemy.instance()
 	new_enemy.set_pos(Vector2(32 + randi()%(Globals.get("CONFIG/WIDTH")-16), -16 - randi()%128))
 	new_enemy.set_game_ptr(self)
 	ptr.terrain.add_child(new_enemy)
-	if randi()%10<5: spawn_bonus()
 	
 func spawn_bonus():
 	var new_bonus = scenes.bonus.instance()
 	new_bonus.set_pos(Vector2(32 + randi()%(Globals.get("CONFIG/WIDTH")-16), -16 - randi()%128))
+	new_bonus.set_game_ptr(self)
 	ptr.terrain.add_child(new_bonus)
 	
 func game_over():
