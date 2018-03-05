@@ -1,7 +1,25 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
-[ext_resource path="res://game_over.gd" type="Script" id=2]
+[ext_resource path="res://assets/ultra-6000.png" type="Texture" id=2]
+[ext_resource path="res://game_over.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "fly"
+length = 2.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 1.7, 2 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 303.541, -104.985 ), Vector2( 99.2844, -53.1124 ), Vector2( 45.2545, -39.8476 ), Vector2( -188.228, 18.9275 ) ]
+}
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -31,20 +49,62 @@ content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[node name="game_over" type="Panel"]
+[node name="game_over" type="Control"]
 
-rect/min_size = Vector2( 128, 64 )
+rect/min_size = Vector2( 128, 48 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
-margin/left = 36.0
-margin/top = 43.0
-margin/right = 164.0
-margin/bottom = 107.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 128.0
+margin/bottom = 48.0
 
-[node name="menu" type="VButtonArray" parent="."]
+[node name="logo" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 3.0
+margin/top = 63.0
+margin/right = 43.0
+margin/bottom = 103.0
+
+[node name="ultrak4" type="Sprite" parent="logo"]
+
+transform/pos = Vector2( 303.541, -104.985 )
+transform/rot = 15.0
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="anim" type="AnimationPlayer" parent="logo/ultrak4"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/fly = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "fly"
+
+[node name="panel" type="Panel" parent="."]
+
+rect/min_size = Vector2( 128, 48 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 40.0
+margin/right = 128.0
+margin/bottom = 88.0
+
+[node name="menu" type="VButtonArray" parent="panel"]
 
 anchor/right = 1
 anchor/bottom = 1
@@ -52,10 +112,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 8.0
-margin/top = 6.0
-margin/right = 8.0
-margin/bottom = 8.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
 custom_styles/hover = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/selected = SubResource( 3 )
@@ -64,58 +124,20 @@ custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/button_separator = 8
 flat = true
-button/count = 3
+button/count = 2
 button/min_button_size = -1.0
 button/align = 1
-button/0/text = "PLAY AGAIN"
+button/0/text = "PLAY AGAIN!"
 button/0/tooltip = ""
 button/0/icon = null
-button/1/text = "CHOOSE MAP"
+button/1/text = "< MENU"
 button/1/tooltip = ""
 button/1/icon = null
-button/2/text = "< MENU"
-button/2/tooltip = ""
-button/2/icon = null
 button/selected = 0
-script/script = ExtResource( 2 )
+script/script = ExtResource( 3 )
 
-[node name="title" type="Panel" parent="."]
+[connection signal="button_selected" from="panel/menu" to="panel/menu" method="_on_menu_button_selected"]
 
-rect/min_size = Vector2( 96, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 16.0
-margin/top = -26.0
-margin/right = 112.0
-margin/bottom = -2.0
-
-[node name="game over" type="Label" parent="title"]
-
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 0
-custom_constants/shadow_offset_y = 1
-text = "GAME OVER"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[connection signal="button_selected" from="menu" to="menu" method="_on_menu_button_selected"]
-
-[connection signal="input_event" from="menu" to="menu" method="_on_menu_input_event"]
+[connection signal="input_event" from="panel/menu" to="panel/menu" method="_on_menu_input_event"]
 
 

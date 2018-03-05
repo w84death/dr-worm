@@ -95,4 +95,4 @@ func game_over():
 	ptr.terrain.hide()
 	ptr.terrain.queue_free()
 	ptr.gui_game_over.show()
-	ptr.gui_game_over.get_node("menu").grab_focus()
+	ptr.gui_game_over.get_node("panel/menu").grab_focus()
