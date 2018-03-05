@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 [ext_resource path="res://code/choose_map.gd" type="Script" id=4]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 
 resource/name = "idle"
 length = 5.0
@@ -97,7 +97,7 @@ margin/bottom = -262.0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 6 )
+anims/idle = SubResource( 1 )
 playback/active = true
 playback/speed = 0.5
 blend_times = [  ]

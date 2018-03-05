@@ -25,6 +25,7 @@ func _fixed_process(delta):
 	if get_pos().y > 150: set_pos(Vector2(32 + randi()%(CONFIG.WIDTH-16), -8 - randi()%32))
 
 	if is_colliding():
+		get_collider().hit()
+		ptr_game.spawn_enemy()
 		hide()
 		queue_free()
-		ptr_game.spawn_enemy()

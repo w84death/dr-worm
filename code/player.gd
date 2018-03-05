@@ -6,9 +6,14 @@
 var velocity = Vector2(0,0)
 var smoothness = 0.5
 var speed = 200
+var health = 10
+var ptr_game = null
 
 func _ready():
 	set_fixed_process(true)
+
+func set_game_ptr(ptr):
+	 ptr_game = ptr
 	
 func _fixed_process(delta):
 	var direction = Vector2(0,0)
@@ -16,10 +21,11 @@ func _fixed_process(delta):
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("joy_left"):
 		if get_pos().x > 4: direction.x = -1
 	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("joy_right"):
-		if get_pos().x < 196: direction.x = 1
+		if get_pos().x < Globals.get("CONFIG/WIDTH")-4: direction.x = 1
 	
 	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
 	move(velocity * delta)
 	
-	if is_colliding():
-		print('colliding')
+func hit():
+	health -= 1
+	if health < 1: ptr_game.game_over()
