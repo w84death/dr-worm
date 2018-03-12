@@ -23,11 +23,14 @@ func set_random_bonus():
 	
 func _fixed_process(delta):
 	move(velocity * delta)
-	# DEMO
-	if get_pos().y > 150: set_pos(Vector2(32 + randi()%(Globals.get("CONFIG/WIDTH")-16), -8 - randi()%32))
+
+	if get_pos().y > Globals.get("CONFIG/HEIGHT") + 16:
+		die()
 
 	if is_colliding():
 		get_collider().set_bonus(bonus_type)
-		ptr_game.spawn_bonus()
-		hide()
-		queue_free()
+		die()
+
+func die():
+	ptr_game.remove_me(self)
+	queue_free()

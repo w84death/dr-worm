@@ -30,7 +30,7 @@ tracks/1/keys = {
 "times": FloatArray( 0, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.8, 0.8 ) ]
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 0.7, 0.7 ) ]
 }
 
 [sub_resource type="StyleBoxEmpty" id=2]
@@ -76,12 +76,12 @@ margin/bottom = 0.0
 
 [node name="background" type="Sprite" parent="."]
 
-transform/pos = Vector2( 100, 75 )
-transform/rot = -14.0
+transform/pos = Vector2( 90, 65 )
+transform/rot = 14.0
 transform/scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 1 )
 region = true
-region_rect = Rect2( 0, 0, 300, 300 )
+region_rect = Rect2( 0, 0, 400, 300 )
 
 [node name="ultra-6k" type="Sprite" parent="background"]
 
@@ -116,20 +116,16 @@ use_top_left = false
 
 [node name="main" type="Panel" parent="center"]
 
-anchor/left = 3
-anchor/top = 3
-anchor/right = 3
-anchor/bottom = 3
 rect/min_size = Vector2( 128, 64 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 3 )
-margin/left = 64.0
-margin/top = 32.0
-margin/right = -64.0
-margin/bottom = -32.0
+margin/left = 36.0
+margin/top = 43.0
+margin/right = 164.0
+margin/bottom = 107.0
 
 [node name="menu" type="VButtonArray" parent="center/main"]
 

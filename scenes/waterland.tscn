@@ -57,7 +57,6 @@ tracks/0/keys = {
 
 [node name="waterland" type="Control"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -96,7 +95,7 @@ transform/pos = Vector2( -22.858, -22.858 )
 texture = ExtResource( 2 )
 centered = false
 region = true
-region_rect = Rect2( 0, 0, 232, 192 )
+region_rect = Rect2( 0, 0, 232, 212 )
 
 [node name="anim" type="AnimationPlayer" parent="water1"]
 
@@ -119,7 +118,7 @@ transform/pos = Vector2( -32, -32 )
 texture = ExtResource( 3 )
 centered = false
 region = true
-region_rect = Rect2( 0, 0, 264, 192 )
+region_rect = Rect2( 0, 0, 264, 212 )
 
 [node name="anim" type="AnimationPlayer" parent="water2"]
 

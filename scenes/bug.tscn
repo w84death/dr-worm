@@ -1,13 +1,12 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://code/bug.gd" type="Script" id=1]
 [ext_resource path="res://assets/bugs.png" type="Texture" id=2]
-[ext_resource path="res://code/randomize_animation.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 7.20556
+radius = 5.43158
 
 [sub_resource type="Animation" id=2]
 
@@ -38,16 +37,16 @@ collision/margin = 0.08
 script/script = ExtResource( 1 )
 speed = 96
 
+[node name="body" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+hframes = 3
+
 [node name="collision" type="CollisionShape2D" parent="."]
 
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[node name="body" type="Sprite" parent="."]
-
-texture = ExtResource( 2 )
-hframes = 3
 
 [node name="anim" type="AnimationPlayer" parent="."]
 
@@ -59,6 +58,5 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "idle"
-script/script = ExtResource( 3 )
 
 

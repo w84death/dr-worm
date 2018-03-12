@@ -16,12 +16,13 @@ func set_game_ptr(ptr):
 	
 func _fixed_process(delta):
 	var direction = Vector2(0,0)
-	
+	var _pos = int(get_pos().x)
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("joy_left"):
-		if get_pos().x > 4: direction.x = -1
-	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("joy_right"):
-		if get_pos().x < Globals.get("CONFIG/WIDTH")-4: direction.x = 1
+		if _pos > 12: direction.x = -1
 	
+	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("joy_right"):
+		if _pos < Globals.get("CONFIG/WIDTH")-12: direction.x = 1
+
 	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
 	move(velocity * delta)
 	
@@ -29,4 +30,5 @@ func hit():
 	ptr_game.shorten_player_body()
 
 func set_bonus(type):
+	ptr_game.bonus_increment()
 	ptr_game.extend_player_body()

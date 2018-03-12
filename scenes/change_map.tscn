@@ -5,6 +5,13 @@
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 [ext_resource path="res://code/choose_map.gd" type="Script" id=4]
 
+[sub_resource type="StyleBoxEmpty" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
 [sub_resource type="StyleBoxEmpty" id=2]
 
 content_margin/left = -1.0
@@ -20,13 +27,6 @@ content_margin/top = -1.0
 content_margin/bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id=4]
-
-content_margin/left = -1.0
-content_margin/right = -1.0
-content_margin/top = -1.0
-content_margin/bottom = -1.0
-
-[sub_resource type="StyleBoxEmpty" id=5]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -50,19 +50,19 @@ margin/bottom = 0.0
 
 rect/rotation = -45.0
 rect/scale = Vector2( 2, 2 )
-margin/left = 213.0
-margin/top = -32.0
-margin/right = 253.0
-margin/bottom = 8.0
+margin/left = 203.0
+margin/top = -42.0
+margin/right = 243.0
+margin/bottom = -2.0
 
 [node name="grassland" parent="." instance=ExtResource( 2 )]
 
 rect/rotation = -45.0
 rect/scale = Vector2( 2, 2 )
-margin/left = -82.0
-margin/top = -302.0
-margin/right = -42.0
-margin/bottom = -262.0
+margin/left = -12.0
+margin/top = -232.0
+margin/right = 28.0
+margin/bottom = -192.0
 
 [node name="center" type="CenterContainer" parent="."]
 
@@ -86,10 +86,10 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 3 )
-margin/left = 36.0
-margin/top = 43.0
-margin/right = 164.0
-margin/bottom = 107.0
+margin/left = 11.0
+margin/top = 68.0
+margin/right = 139.0
+margin/bottom = 132.0
 
 [node name="menu" type="VButtonArray" parent="center/main"]
 
@@ -103,10 +103,10 @@ margin/left = 8.0
 margin/top = 6.0
 margin/right = 8.0
 margin/bottom = 8.0
-custom_styles/hover = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/selected = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/selected = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/button_separator = 8
