@@ -43,7 +43,7 @@ func return_to_menu():
 
 func init_game():
 	set_map_type(Globals.get("GAME/MAP_TYPE"))
-	spawn_player(Globals.get("CONFIG/HALF_WIDTH"), Globals.get("CONFIG/HEIGHT") - 32)
+	spawn_player(40, Globals.get("CONFIG/HEIGHT") - 32)
 	ptr.timer.start()
 	for p in range(PLAYER_BODY_START): extend_player_body()
 	game_active = true
@@ -75,7 +75,7 @@ func set_map_type(type):
 
 func spawn_player(x, y):
 	var new_player = scenes.player.instance()
-	new_player.set_pos(Vector2(x, y))
+	new_player.set_position(Vector2(x, y))
 	new_player.set_game_ptr(self)
 	ptr.terrain.add_child(new_player)
 	ptr.player = new_player
@@ -86,10 +86,9 @@ func extend_player_body():
 	var new_body = scenes.player_body.instance()
 	new_body.set_pos(ptr.player_last_body.get_pos() + Vector2(0, 6))
 	new_body.set_joint(ptr.player_last_body)
-	new_body.decrese_speed(length*10)
 	ptr.terrain.add_child(new_body)
 	ptr.player_last_body = new_body
-	ptr.side_panel.get_node("health").set_text(str(length))
+	ptr.side_panel.get_node("list/size/size").set_text(str(length))
 
 func shorten_player_body():
 	length -= 1
@@ -97,7 +96,7 @@ func shorten_player_body():
 	ptr.player_last_body = ptr.player_last_body.get_parent()
 	recycle.hide()
 	recycle.queue_free()
-	ptr.side_panel.get_node("health").set_text(str(length))
+	ptr.side_panel.get_node("list/size/size").set_text(str(length))
 	if length < 0: game_over()
 	
 func spawn_enemy(new_x):
@@ -124,7 +123,11 @@ func game_over():
 
 func bonus_increment():
 	score += 1
-	ptr.side_panel.get_node("pills").set_text(str(score))
+	ptr.side_panel.get_node("list/pills/pills").set_text(str(score))
+	
+func bonus_update():
+	ptr.side_panel.get_node("list/bonus/bonus").set_text(str(ptr.player.bonus) + '/' + str(Globals.get("GAME/BONUS_TO_HEALTH")))
 	
 func remove_me(trash):
 	ptr.terrain.remove_child(trash)
+	

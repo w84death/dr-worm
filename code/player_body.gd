@@ -4,28 +4,30 @@
 # http://p1x.in | krzysztofjankowski.com
 
 var ptr_parent = null
-var velocity = Vector2(0,0)
-var smoothness = 0.5
-var speed = 200
+var target = Vector2(0,0)
 
 func _ready():
 	set_fixed_process(true)
 
 func set_joint(ptr_body):
 	ptr_parent = ptr_body
-
-func decrese_speed(decrese):
-	speed -= decrese
 	
 func _fixed_process(delta):
 	var direction = Vector2(0,0)
-	if ptr_parent:
-		var diff = int(ptr_parent.get_pos().x - get_pos().x)
-		if diff < -2: direction.x = -1
-		if diff > 2: direction.x = 1
+	var _pos = int(get_pos().x)
+	var _parent = int(ptr_parent.get_pos().x)
+	var _target = int(target.x)
 	
-	velocity.x = lerp(velocity.x, speed * direction.x, smoothness)
-	move(velocity * delta)
+	if ptr_parent:
+		if abs(_pos - _parent) > 12:
+			target.x = _parent
+			target.x = int(target.x/8)*8
+	
+	
+	if _target < _pos: direction.x = -4
+	if _target > _pos: direction.x = 4
+
+	set_pos(get_pos() + direction)
 
 func get_parent():
 	return ptr_parent

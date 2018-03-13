@@ -1,0 +1,180 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+
+[node name="side_panel" type="Panel"]
+
+anchor/left = 1
+anchor/right = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 40, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 40.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="list" type="VBoxContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 8.0
+margin/right = 40.0
+margin/bottom = 8.0
+alignment = 0
+
+[node name="pills" type="VBoxContainer" parent="list"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 24.0
+alignment = 0
+
+[node name="_pills" type="Label" parent="list/pills"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 8.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "PILLS"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="pills" type="Label" parent="list/pills"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 12.0
+margin/right = 40.0
+margin/bottom = 20.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="bonus" type="VBoxContainer" parent="list"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 28.0
+margin/right = 40.0
+margin/bottom = 52.0
+alignment = 0
+
+[node name="_bonus" type="Label" parent="list/bonus"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 8.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "BONUS"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="bonus" type="Label" parent="list/bonus"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 12.0
+margin/right = 40.0
+margin/bottom = 20.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "0/3"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="size" type="VBoxContainer" parent="list"]
+
+rect/min_size = Vector2( 0, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 56.0
+margin/right = 40.0
+margin/bottom = 80.0
+alignment = 0
+
+[node name="_size" type="Label" parent="list/size"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 8.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "SIZE"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="size" type="Label" parent="list/size"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 12.0
+margin/right = 40.0
+margin/bottom = 20.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "000"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+
