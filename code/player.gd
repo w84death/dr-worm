@@ -41,14 +41,16 @@ func hit():
 	ptr_game.shorten_player_body()
 	bonus = 0
 	ptr_game.bonus_update()
-	Input.start_joy_vibration(0, 0.5, 1.0, 0.5)
+	Input.stop_joy_vibration(0)
+	Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
 
 func set_bonus(type):
+	ptr_game.reset_time_left()
 	ptr_game.bonus_increment()
 	bonus += 1
-	Input.start_joy_vibration(0, 0.0, 0.2, 0.1)
+	Input.start_joy_vibration(0, 0.0, 0.2, 0.2)
 	if bonus >= Globals.get("GAME/BONUS_TO_HEALTH"):
 		ptr_game.extend_player_body()
-		Input.start_joy_vibration(0, 0.2, 0.5, 1)
+		Input.start_joy_vibration(0, 0.0, 0.5, 0.5)
 		bonus = 0
 	ptr_game.bonus_update()

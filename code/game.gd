@@ -13,29 +13,22 @@ onready var scenes = {
 	waterland = preload("res://scenes/waterland.tscn")}
 
 onready var ptr = {
-	timer = get_node("timer"),
+	timer_enemy = get_node("timer_enemy"),
+	timer_bonus = get_node("timer_bonus"),
 	background = get_node("background"),
 	terrain = get_node("terrain"),
 	player = null, 
 	player_last_body = null,
 	gui_game_over = get_node("GUI/game_over"),
-	side_panel = get_node("side_panel")}
+	side_panel = get_node("side_panel"),
+	bonus_panel = get_node("bonus_panel"),
+	timer_panel = get_node("timer_panel")}
 
 var score = 0
-var active_bonus = 0
 var length = 0
-var game_active = false
-
-const ENEMY_MAX = 16
-const PLAYER_BODY_START = 3
-const BONUS_START = 1
-const BONUS_NONE = 0
-const BONUS_SPEED = 1
-const BONUS_ENLARGE = 2
-const BONUS_BULLET_TIME = 3
+var time_left = 6
 
 func _ready():
-	set_fixed_process(true)
 	init_game()
 
 func return_to_menu():
@@ -44,15 +37,9 @@ func return_to_menu():
 func init_game():
 	set_map_type(Globals.get("GAME/MAP_TYPE"))
 	spawn_player(40, Globals.get("CONFIG/HEIGHT") - 32)
-	ptr.timer.start()
-	for p in range(PLAYER_BODY_START): extend_player_body()
-	game_active = true
-
-func _fixed_process(delta):
-	if game_active:
-		if ptr.timer.get_time_left() == 0:
-			spawn_wave()
-			if game_active: ptr.timer.start()
+	ptr.timer_enemy.start()
+	ptr.timer_bonus.start()
+	for p in range(Globals.get("GAME/PLAYER_HP_ON_START")): extend_player_body()
 
 func spawn_wave():
 	var masks = [
@@ -65,7 +52,6 @@ func spawn_wave():
 		var bit = int(pow(2,x))
 		if bit_mask & bit == bit: 
 			spawn_enemy((x*16))
-	if randi()%10 < 3: spawn_bonus(int(randi()%8)*16)
 
 func set_map_type(type):
 	var new_terrain 
@@ -114,10 +100,13 @@ func spawn_bonus(new_x):
 	ptr.terrain.add_child(new_bonus)
 	
 func game_over():
-	game_active = false
+	ptr.timer_enemy.stop()
+	ptr.timer_bonus.stop()
 	ptr.gui_game_over.get_node("score/score").set_text(str(score))
 	ptr.terrain.hide()
 	ptr.side_panel.hide()
+	ptr.bonus_panel.hide()
+	ptr.timer_panel.hide()
 	ptr.gui_game_over.show()
 	ptr.gui_game_over.get_node("panel/menu").grab_focus()
 
@@ -126,8 +115,29 @@ func bonus_increment():
 	ptr.side_panel.get_node("list/pills/pills").set_text(str(score))
 	
 func bonus_update():
-	ptr.side_panel.get_node("list/bonus/bonus").set_text(str(ptr.player.bonus) + '/' + str(Globals.get("GAME/BONUS_TO_HEALTH")))
+	ptr.bonus_panel.get_node("bonus").set_text(str(ptr.player.bonus) + '/' + str(Globals.get("GAME/BONUS_TO_HEALTH")))
+
+func timer_update():
+	ptr.timer_panel.get_node("time_left").set_text('0:0' + str(time_left))
 	
 func remove_me(trash):
 	ptr.terrain.remove_child(trash)
+
+func _on_timer_timeout():
+	spawn_wave()
+
+func _on_timer_bonus_timeout():
+	spawn_bonus(int(randi()%8)*16)
+
+func _on_timer_deadline_timeout():
+	time_left -= 1
+	if time_left < 0:
+		reset_time_left()
+		shorten_player_body()
+		Input.stop_joy_vibration(0)
+		Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
+	timer_update()
 	
+func reset_time_left():
+	time_left = Globals.get("GAME/DEADLINE_TIME_SEC")
+	timer_update()
