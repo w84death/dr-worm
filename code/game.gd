@@ -22,7 +22,6 @@ onready var ptr = {
 	player = null, 
 	player_last_body = null,
 	side_panel = get_node("side_panel"),
-	timer_panel = get_node("timer_panel"),
 	timer_dopamine = get_node("timer_dopamine"),
 	pills_box = get_node("side_panel/bonus/pills_box")}
 
@@ -33,6 +32,7 @@ var difficulty_time = 0
 var protection = true
 var score_bonus = 1
 var dopamine_spawning = false
+var obstacle_spawning = false
 
 func _ready():
 	init_game()
@@ -127,23 +127,33 @@ func spawn_dopamine(new_x):
 	new_dopamine.set_game_ptr(self)
 	ptr.terrain.add_child(new_dopamine)
 	
+func spawn_obstacle(new_x):
+	var new_obstacle = scenes.obstacle.instance()
+	new_obstacle.set_pos(Vector2(new_x, -16))
+	new_obstacle.set_game_ptr(self)
+	ptr.terrain.add_child(new_obstacle)
+
+func spawn_obstacles():
+	spawn_obstacle(8)
+	spawn_obstacle(Globals.get("CONFIG/WIDTH")-8)
+	
 func game_over():
 	get_tree().change_scene("res://scenes/game_over.tscn")
 
 func bonus_increment(id):
-	score += score_bonus
-	Globals.set("GAME/LAST_SCORE", score)
-	ptr.side_panel.get_node("score/score").set_text(str(score))
+	score_increment(score_bonus)
 	ptr.pills_box.add_pill(id)
 	if ptr.pills_box.is_perfect(): start_dopamine_bonus()
+
+func score_increment(amount):
+	score += amount
+	Globals.set("GAME/LAST_SCORE", score)
+	ptr.side_panel.get_node("score/score").set_text(str(score))
 	
 func bonus_update(no):
 	if no == 0: ptr.pills_box.reset_box()
 
-func timer_update():
-	ptr.timer_panel.get_node("time_left").set_text('0:0' + str(time_left))
-	if time_left == 0:ptr.timer_panel.get_node("anim").play("flash")
-	
+
 func remove_me(trash):
 	ptr.terrain.remove_child(trash)
 
@@ -154,20 +164,16 @@ func _on_timer_bonus_timeout():
 	var bonus_x = int(randi()%8)
 	spawn_bonus(bonus_x*16)
 
-
 func _on_timer_deadline_timeout():
 	time_left -= 1
+	if obstacle_spawning: spawn_obstacles()
 	if time_left < 0:
 		reset_time_left()
-		ptr.player.flash()
-		shorten_player_body()
-		Input.stop_joy_vibration(0)
-		Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
-	timer_update()
+		obstacle_spawning = not obstacle_spawning
 	
 func reset_time_left():
 	time_left = difficulty_time
-	timer_update()
+	if obstacle_spawning: obstacle_spawning = not obstacle_spawning
 	
 func change_terrain(id):
 	ptr.background.get_node("terrain").set_ground(id)

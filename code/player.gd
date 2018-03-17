@@ -59,7 +59,15 @@ func set_bonus(type):
 	ptr_game.bonus_update(bonus)
 	
 func set_dopamine():
-	pass
+	ptr_game.score_increment(1)
 	
 func flash():
 	ptr_anim.play("flash")
+	
+func push_form_safe_zone():
+	var _pos = int(get_pos().x)
+	if _pos < Globals.get("CONFIG/HALF_WIDTH"):
+		target.x += 32
+	else:
+		target.x -= 32
+	target.x = int(target.x/8)*8

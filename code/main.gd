@@ -45,7 +45,8 @@ func go_to_menu():
 # - bonus panel working  
 # - coins to collect
 # - 3x same bonus = coins mode
-# - 
+# - removed timer
+# - deadline generates obstacle (rock) on safezone
 #
 # alpha8___
 # - new bonuses sprites
