@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://code/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/side_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 [ext_resource path="res://assets/light_2.png" type="Texture" id=4]
 [ext_resource path="res://scenes/flash_animation.tres" type="Animation" id=5]
+[ext_resource path="res://assets/sounds/game.ogg" type="AudioStream" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -42,6 +43,13 @@ one_shot = false
 autostart = false
 
 [node name="timer_deadline" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="timer_dopamine" type="Timer" parent="."]
 
 process_mode = 1
 wait_time = 1.0
@@ -148,42 +156,16 @@ playback/speed = 4.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="bonus_panel" type="Panel" parent="."]
+[node name="music" type="StreamPlayer" parent="."]
 
-anchor/left = 1
-anchor/top = 3
-anchor/right = 1
-anchor/bottom = 3
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-theme/theme = ExtResource( 3 )
-margin/left = 70.0
-margin/top = -51.0
-margin/right = 40.0
-margin/bottom = -75.0
-
-[node name="bonus" type="Label" parent="bonus_panel"]
-
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 0
-text = "0/3"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+stream/stream = ExtResource( 6 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 [connection signal="input_event" from="." to="." method="_on_game_input_event"]
 
@@ -192,5 +174,7 @@ max_lines_visible = -1
 [connection signal="timeout" from="timer_bonus" to="." method="_on_timer_bonus_timeout"]
 
 [connection signal="timeout" from="timer_deadline" to="." method="_on_timer_deadline_timeout"]
+
+[connection signal="timeout" from="timer_dopamine" to="." method="_on_timer_dopamine_timeout"]
 
 

@@ -9,6 +9,7 @@ onready var scenes = {
 	enemy = preload("res://scenes/bug.tscn"),
 	obstacle = preload("res://scenes/rock.tscn"),
 	bonus = preload("res://scenes/bonuses.tscn"),
+	dopamine = preload("res://scenes/dopamine.tscn"),
 	grassland = preload("res://scenes/grassland.tscn"),
 	waterland = preload("res://scenes/waterland.tscn")}
 
@@ -21,8 +22,9 @@ onready var ptr = {
 	player = null, 
 	player_last_body = null,
 	side_panel = get_node("side_panel"),
-	bonus_panel = get_node("bonus_panel"),
-	timer_panel = get_node("timer_panel")}
+	timer_panel = get_node("timer_panel"),
+	timer_dopamine = get_node("timer_dopamine"),
+	pills_box = get_node("side_panel/bonus/pills_box")}
 
 var score = 0
 var length = 0
@@ -30,6 +32,7 @@ var time_left = 0
 var difficulty_time = 0
 var protection = true
 var score_bonus = 1
+var dopamine_spawning = false
 
 func _ready():
 	init_game()
@@ -44,6 +47,7 @@ func init_game():
 	ptr.timer_enemy.start()
 	ptr.timer_bonus.start()
 	ptr.timer_deadline.start()
+	ptr.timer_dopamine.set_wait_time(Globals.get("GAME/DOPAMINE_TIME_SEC"))
 	reset_time_left()
 	for p in range(Globals.get("GAME/PLAYER_HP_ON_START")): extend_player_body()
 
@@ -57,8 +61,11 @@ func spawn_wave():
 	for x in range(0, 8):
 		var bit = int(pow(2,x))
 		if bit_mask & bit == bit: 
-			spawn_enemy((x*16))
-
+			if dopamine_spawning:
+				spawn_dopamine(x*16)
+			else:
+				spawn_enemy(x*16)
+	
 func set_map_type(type):
 	var new_terrain 
 	if type == 0: new_terrain = scenes.grassland.instance()
@@ -88,7 +95,7 @@ func extend_player_body():
 	new_body.set_joint(ptr.player_last_body)
 	ptr.terrain.add_child(new_body)
 	ptr.player_last_body = new_body
-	ptr.side_panel.get_node("list/size/size").set_text(str(length))
+	ptr.side_panel.get_node("size/size").set_text(str(length))
 
 func shorten_player_body():
 	length -= 1
@@ -96,7 +103,7 @@ func shorten_player_body():
 	ptr.player_last_body = ptr.player_last_body.get_parent()
 	recycle.hide()
 	recycle.queue_free()
-	ptr.side_panel.get_node("list/size/size").set_text(str(length))
+	ptr.side_panel.get_node("size/size").set_text(str(length))
 	if length < 0: game_over()
 	
 func spawn_enemy(new_x):
@@ -113,16 +120,25 @@ func spawn_bonus(new_x):
 	new_bonus.set_game_ptr(self)
 	ptr.terrain.add_child(new_bonus)
 	
+func spawn_dopamine(new_x):
+	new_x += Globals.get("CONFIG/LEFT_MARGIN")
+	var new_dopamine = scenes.dopamine.instance()
+	new_dopamine.set_pos(Vector2(new_x, -16))
+	new_dopamine.set_game_ptr(self)
+	ptr.terrain.add_child(new_dopamine)
+	
 func game_over():
 	get_tree().change_scene("res://scenes/game_over.tscn")
 
-func bonus_increment():
+func bonus_increment(id):
 	score += score_bonus
 	Globals.set("GAME/LAST_SCORE", score)
-	ptr.side_panel.get_node("list/pills/pills").set_text(str(score))
+	ptr.side_panel.get_node("score/score").set_text(str(score))
+	ptr.pills_box.add_pill(id)
+	if ptr.pills_box.is_perfect(): start_dopamine_bonus()
 	
-func bonus_update():
-	ptr.bonus_panel.get_node("bonus").set_text(str(ptr.player.bonus) + '/' + str(Globals.get("GAME/BONUS_TO_HEALTH")))
+func bonus_update(no):
+	if no == 0: ptr.pills_box.reset_box()
 
 func timer_update():
 	ptr.timer_panel.get_node("time_left").set_text('0:0' + str(time_left))
@@ -135,7 +151,9 @@ func _on_timer_timeout():
 	spawn_wave()
 
 func _on_timer_bonus_timeout():
-	spawn_bonus(int(randi()%8)*16)
+	var bonus_x = int(randi()%8)
+	spawn_bonus(bonus_x*16)
+
 
 func _on_timer_deadline_timeout():
 	time_left -= 1
@@ -153,3 +171,11 @@ func reset_time_left():
 	
 func change_terrain(id):
 	ptr.background.get_node("terrain").set_ground(id)
+
+func start_dopamine_bonus():
+	dopamine_spawning = true
+	ptr.pills_box.get_node("perfect").play("perfect")
+	ptr.timer_dopamine.start()
+	
+func _on_timer_dopamine_timeout():
+	dopamine_spawning = false

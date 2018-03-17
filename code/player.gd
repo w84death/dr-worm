@@ -42,13 +42,13 @@ func hit():
 	flash()
 	ptr_game.shorten_player_body()
 	bonus = 0
-	ptr_game.bonus_update()
+	ptr_game.bonus_update(bonus)
 	Input.stop_joy_vibration(0)
 	Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
 
 func set_bonus(type):
 	ptr_game.reset_time_left()
-	ptr_game.bonus_increment()
+	ptr_game.bonus_increment(type)
 	ptr_game.change_terrain(type)
 	bonus += 1
 	Input.start_joy_vibration(0, 0.0, 0.2, 0.2)
@@ -56,7 +56,10 @@ func set_bonus(type):
 		ptr_game.extend_player_body()
 		Input.start_joy_vibration(0, 0.0, 0.5, 0.5)
 		bonus = 0
-	ptr_game.bonus_update()
+	ptr_game.bonus_update(bonus)
+	
+func set_dopamine():
+	pass
 	
 func flash():
 	ptr_anim.play("flash")
