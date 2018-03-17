@@ -5,6 +5,7 @@
 
 var velocity = Vector2(0,0)
 var ptr_game = null
+onready var ptr_anim = get_node("anim") 
 var target = Vector2(0,0)
 var bonus = 0
 
@@ -38,6 +39,7 @@ func _fixed_process(delta):
 	set_pos(get_pos() + direction)
 	
 func hit():
+	flash()
 	ptr_game.shorten_player_body()
 	bonus = 0
 	ptr_game.bonus_update()
@@ -47,6 +49,7 @@ func hit():
 func set_bonus(type):
 	ptr_game.reset_time_left()
 	ptr_game.bonus_increment()
+	ptr_game.change_terrain(type)
 	bonus += 1
 	Input.start_joy_vibration(0, 0.0, 0.2, 0.2)
 	if bonus >= Globals.get("GAME/BONUS_TO_HEALTH"):
@@ -54,3 +57,6 @@ func set_bonus(type):
 		Input.start_joy_vibration(0, 0.0, 0.5, 0.5)
 		bonus = 0
 	ptr_game.bonus_update()
+	
+func flash():
+	ptr_anim.play("flash")

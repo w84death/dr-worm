@@ -8,7 +8,7 @@ export var bonus_type = 0
 var velocity = Vector2(0, speed)
 var ptr_game = null
 
-onready var ptr_body = get_node("body")
+onready var ptr_body = get_node("bonus_bgc/body")
 	
 func _ready():
 	randomize()
@@ -19,7 +19,8 @@ func set_game_ptr(ptr):
 	 ptr_game = ptr
 
 func set_random_bonus():
-	ptr_body.set_frame(int(randi()%6))
+	bonus_type = int(randi()%4)
+	ptr_body.set_frame(bonus_type)
 	
 func _fixed_process(delta):
 	move(velocity * delta)

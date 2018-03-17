@@ -15,18 +15,21 @@ onready var scenes = {
 onready var ptr = {
 	timer_enemy = get_node("timer_enemy"),
 	timer_bonus = get_node("timer_bonus"),
+	timer_deadline = get_node("timer_deadline"),
 	background = get_node("background"),
 	terrain = get_node("terrain"),
 	player = null, 
 	player_last_body = null,
-	gui_game_over = get_node("GUI/game_over"),
 	side_panel = get_node("side_panel"),
 	bonus_panel = get_node("bonus_panel"),
 	timer_panel = get_node("timer_panel")}
 
 var score = 0
 var length = 0
-var time_left = 6
+var time_left = 0
+var difficulty_time = 0
+var protection = true
+var score_bonus = 1
 
 func _ready():
 	init_game()
@@ -36,9 +39,12 @@ func return_to_menu():
 
 func init_game():
 	set_map_type(Globals.get("GAME/MAP_TYPE"))
+	set_difficulty(Globals.get("GAME/DIFFICULTY"))
 	spawn_player(40, Globals.get("CONFIG/HEIGHT") - 32)
 	ptr.timer_enemy.start()
 	ptr.timer_bonus.start()
+	ptr.timer_deadline.start()
+	reset_time_left()
 	for p in range(Globals.get("GAME/PLAYER_HP_ON_START")): extend_player_body()
 
 func spawn_wave():
@@ -58,6 +64,14 @@ func set_map_type(type):
 	if type == 0: new_terrain = scenes.grassland.instance()
 	if type == 1: new_terrain = scenes.waterland.instance()
 	ptr.background.add_child(new_terrain)
+
+func set_difficulty(diff):
+	if diff == 0: 
+		difficulty_time = Globals.get("GAME/DIFF_EASY_TIME_SEC")
+		score_bonus = Globals.get("GAME/DIFF_EASY_SCORE_BONUS")
+	if diff == 1: 
+		difficulty_time = Globals.get("GAME/DIFF_HARD_TIME_SEC")
+		score_bonus = Globals.get("GAME/DIFF_HARD_SCORE_BONUS")
 
 func spawn_player(x, y):
 	var new_player = scenes.player.instance()
@@ -100,18 +114,11 @@ func spawn_bonus(new_x):
 	ptr.terrain.add_child(new_bonus)
 	
 func game_over():
-	ptr.timer_enemy.stop()
-	ptr.timer_bonus.stop()
-	ptr.gui_game_over.get_node("score/score").set_text(str(score))
-	ptr.terrain.hide()
-	ptr.side_panel.hide()
-	ptr.bonus_panel.hide()
-	ptr.timer_panel.hide()
-	ptr.gui_game_over.show()
-	ptr.gui_game_over.get_node("panel/menu").grab_focus()
+	get_tree().change_scene("res://scenes/game_over.tscn")
 
 func bonus_increment():
-	score += 1
+	score += score_bonus
+	Globals.set("GAME/LAST_SCORE", score)
 	ptr.side_panel.get_node("list/pills/pills").set_text(str(score))
 	
 func bonus_update():
@@ -119,6 +126,7 @@ func bonus_update():
 
 func timer_update():
 	ptr.timer_panel.get_node("time_left").set_text('0:0' + str(time_left))
+	if time_left == 0:ptr.timer_panel.get_node("anim").play("flash")
 	
 func remove_me(trash):
 	ptr.terrain.remove_child(trash)
@@ -133,11 +141,15 @@ func _on_timer_deadline_timeout():
 	time_left -= 1
 	if time_left < 0:
 		reset_time_left()
+		ptr.player.flash()
 		shorten_player_body()
 		Input.stop_joy_vibration(0)
 		Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
 	timer_update()
 	
 func reset_time_left():
-	time_left = Globals.get("GAME/DEADLINE_TIME_SEC")
+	time_left = difficulty_time
 	timer_update()
+	
+func change_terrain(id):
+	ptr.background.get_node("terrain").set_ground(id)

@@ -1,36 +1,20 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://code/bonuses.gd" type="Script" id=1]
-[ext_resource path="res://assets/bonuses.png" type="Texture" id=2]
-[ext_resource path="res://assets/bonuses_shine.png" type="Texture" id=3]
+[ext_resource path="res://assets/pills.png" type="Texture" id=2]
+[ext_resource path="res://assets/pills_shine.png" type="Texture" id=3]
+[ext_resource path="res://scenes/shine_animation.tres" type="Animation" id=4]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 11.4977
-height = 7.62359
-
-[sub_resource type="Animation" id=2]
-
-length = 2.0
-loop = true
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("shine:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
+radius = 6.21192
 
 [node name="bonus" type="KinematicBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.02957, 0, 0, 0.421304, 0.0772619, -0.136209 )
+shapes/0/transform = Matrix32( 1.24018, 0, 0, 0.819077, -0.0213407, 0.0212796 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -42,34 +26,43 @@ bonus_type = 0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.0772619, -0.136209 )
-transform/scale = Vector2( 1.02957, 0.421304 )
+transform/pos = Vector2( -0.0213407, 0.0212796 )
+transform/scale = Vector2( 1.24018, 0.819077 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="body" type="Sprite" parent="."]
+[node name="bonus_bgc" type="Control" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="body" type="Sprite" parent="bonus_bgc"]
 
 texture = ExtResource( 2 )
-vframes = 2
-hframes = 3
+hframes = 4
 
-[node name="shine" type="Sprite" parent="."]
+[node name="shine" type="Sprite" parent="bonus_bgc"]
 
 texture = ExtResource( 3 )
 vframes = 3
 hframes = 3
-frame = 6
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="anim" type="AnimationPlayer" parent="bonus_bgc/shine"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 2 )
+anims/shine_animation = ExtResource( 4 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
-autoplay = "idle"
+autoplay = "shine_animation"
 
 

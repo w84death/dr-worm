@@ -18,6 +18,7 @@ func _on_menu_input_event( ev ):
 
 func _on_menu_button_selected( button_idx ):
 	self.menu_selected = button_idx
+	get_node("menu_sound").play()
 
 func choose_map():
 	get_tree().change_scene("res://scenes/choose_map.tscn")
