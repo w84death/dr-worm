@@ -23,7 +23,9 @@ onready var ptr = {
 	player_last_body = null,
 	side_panel = get_node("side_panel"),
 	timer_dopamine = get_node("timer_dopamine"),
-	pills_box = get_node("side_panel/bonus/pills_box")}
+	pills_box = get_node("side_panel/bonus/pills_box"),
+	gfx_timer = get_node("side_panel/gfx_timer"),
+	sfx = get_node("sfx")}
 
 var score = 0
 var length = 0
@@ -93,9 +95,13 @@ func extend_player_body():
 	var new_body = scenes.player_body.instance()
 	new_body.set_pos(ptr.player_last_body.get_pos() + Vector2(0, 6))
 	new_body.set_joint(ptr.player_last_body)
+	if length < 6:
+		new_body.set_scale(Vector2(1-(length*0.1),1-(length*0.1)))
+	else:
+		new_body.hide()
 	ptr.terrain.add_child(new_body)
 	ptr.player_last_body = new_body
-	ptr.side_panel.get_node("size/size").set_text(str(length))
+	ptr.side_panel.get_node("size/size").set_text(str(length)+"x")
 
 func shorten_player_body():
 	length -= 1
@@ -103,7 +109,7 @@ func shorten_player_body():
 	ptr.player_last_body = ptr.player_last_body.get_parent()
 	recycle.hide()
 	recycle.queue_free()
-	ptr.side_panel.get_node("size/size").set_text(str(length))
+	ptr.side_panel.get_node("size/size").set_text(str(length)+"x")
 	if length < 0: game_over()
 	
 func spawn_enemy(new_x):
@@ -166,6 +172,7 @@ func _on_timer_bonus_timeout():
 
 func _on_timer_deadline_timeout():
 	time_left -= 1
+	ptr.gfx_timer.set_time_left(time_left)
 	if obstacle_spawning: spawn_obstacles()
 	if time_left < 0:
 		reset_time_left()
@@ -173,6 +180,7 @@ func _on_timer_deadline_timeout():
 	
 func reset_time_left():
 	time_left = difficulty_time
+	ptr.gfx_timer.set_time_left(time_left)
 	if obstacle_spawning: obstacle_spawning = not obstacle_spawning
 	
 func change_terrain(id):
@@ -185,3 +193,6 @@ func start_dopamine_bonus():
 	
 func _on_timer_dopamine_timeout():
 	dopamine_spawning = false
+	
+func play_sfx(name):
+	ptr.sfx.play(name)

@@ -1,0 +1,49 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+resource/name = "demo"
+length = 1.3
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("ultra-6k:transform/rot")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 0.9 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 32.0, 7.0, 32.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ultra-6k1:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.4, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 32.0, 7.0, 32.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ultra-6k2:transform/rot")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.5, 1.1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 32.0, 7.0, 32.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ultra-6k3:transform/rot")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.6, 1.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 32.0, 7.0, 32.0 ]
+}
+

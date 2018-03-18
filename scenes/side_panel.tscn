@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/strip.png" type="Texture" id=2]
-[ext_resource path="res://assets/p1x_pixelart.png" type="Texture" id=3]
-[ext_resource path="res://code/pill_box.gd" type="Script" id=4]
-[ext_resource path="res://scenes/pill.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/light.png" type="Texture" id=6]
+[ext_resource path="res://code/pill_box.gd" type="Script" id=3]
+[ext_resource path="res://scenes/pill.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/light.png" type="Texture" id=5]
+[ext_resource path="res://assets/snakes.png" type="Texture" id=6]
+[ext_resource path="res://code/gfx_timer.gd" type="Script" id=7]
+[ext_resource path="res://assets/clock.png" type="Texture" id=8]
+[ext_resource path="res://assets/rocks.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -79,14 +82,15 @@ margin/bottom = 0.0
 
 [node name="score" type="Patch9Frame" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -6.0
-margin/top = 7.0
+margin/top = 0.0
 margin/right = 40.0
-margin/bottom = 39.0
+margin/bottom = 32.0
 texture = ExtResource( 2 )
 patch_margin/left = 16
 patch_margin/top = 16
@@ -131,81 +135,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="size" type="Control" parent="."]
-
-rect/min_size = Vector2( 0, 24 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 38.0
-margin/right = 34.0
-margin/bottom = 62.0
-
-[node name="_size" type="Label" parent="size"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 34.0
-margin/bottom = 8.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 0
-text = "SIZE"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="size" type="Label" parent="size"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 9.0
-margin/right = 34.0
-margin/bottom = 17.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 0
-text = "000"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="info" type="ReferenceFrame" parent="."]
-
-rect/min_size = Vector2( 0, 26 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 64.0
-margin/right = 34.0
-margin/bottom = 90.0
-
-[node name="shadow" type="Sprite" parent="info"]
-
-transform/pos = Vector2( 9, 1 )
-texture = ExtResource( 3 )
-centered = false
-modulate = Color( 0, 0, 0, 1 )
-
-[node name="p1x" type="Sprite" parent="info"]
-
-transform/pos = Vector2( 9, 0 )
-texture = ExtResource( 3 )
-centered = false
-
 [node name="bonus" type="ReferenceFrame" parent="."]
 
 rect/min_size = Vector2( 0, 44 )
@@ -214,9 +143,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 102.0
+margin/top = 103.0
 margin/right = 34.0
-margin/bottom = 146.0
+margin/bottom = 147.0
 
 [node name="pills_box" type="VBoxContainer" parent="bonus"]
 
@@ -230,23 +159,23 @@ margin/right = 29.0
 margin/bottom = 40.0
 custom_constants/separation = 2
 alignment = 0
-script/script = ExtResource( 4 )
+script/script = ExtResource( 3 )
 
-[node name="0" parent="bonus/pills_box" instance=ExtResource( 5 )]
+[node name="0" parent="bonus/pills_box" instance=ExtResource( 4 )]
 
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 24.0
 margin/bottom = 12.0
 
-[node name="1" parent="bonus/pills_box" instance=ExtResource( 5 )]
+[node name="1" parent="bonus/pills_box" instance=ExtResource( 4 )]
 
 margin/left = 0.0
 margin/top = 14.0
 margin/right = 24.0
 margin/bottom = 26.0
 
-[node name="2" parent="bonus/pills_box" instance=ExtResource( 5 )]
+[node name="2" parent="bonus/pills_box" instance=ExtResource( 4 )]
 
 editor/display_folded = true
 margin/left = 0.0
@@ -282,7 +211,7 @@ transform/pos = Vector2( 12, 22 )
 transform/scale = Vector2( 3, 3 )
 enabled = false
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 offset = Vector2( 0, 0 )
 scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -299,6 +228,93 @@ shadow/color = Color( 0, 0, 0, 0 )
 shadow/buffer_size = 2048
 shadow/esm_multiplier = 80.0
 shadow/item_mask = 1
+
+[node name="size" type="Control" parent="."]
+
+rect/min_size = Vector2( 0, 12 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 68.0
+margin/right = 34.0
+margin/bottom = 93.0
+
+[node name="size" type="Label" parent="size"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 4.0
+margin/top = 2.0
+margin/right = 30.0
+margin/bottom = 10.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "99"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="size"]
+
+transform/pos = Vector2( 12.0489, 18.2158 )
+texture = ExtResource( 6 )
+vframes = 2
+hframes = 4
+frame = 4
+
+[node name="Sprite1" type="Sprite" parent="size"]
+
+transform/pos = Vector2( 17.4134, 17.9003 )
+texture = ExtResource( 6 )
+vframes = 2
+hframes = 4
+frame = 4
+
+[node name="Sprite2" type="Sprite" parent="size"]
+
+transform/pos = Vector2( 23.9356, 14.638 )
+texture = ExtResource( 6 )
+vframes = 2
+hframes = 4
+frame = 4
+
+[node name="Sprite3" type="Sprite" parent="size"]
+
+transform/pos = Vector2( 25.0401, 10.0625 )
+texture = ExtResource( 6 )
+vframes = 2
+hframes = 4
+
+[node name="gfx_timer" type="ReferenceFrame" parent="."]
+
+editor/display_folded = true
+rect/min_size = Vector2( 34, 32 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 31.0
+margin/right = 34.0
+margin/bottom = 63.0
+script/script = ExtResource( 7 )
+
+[node name="time" type="Sprite" parent="gfx_timer"]
+
+transform/pos = Vector2( 17.434, 15.4931 )
+texture = ExtResource( 8 )
+vframes = 3
+hframes = 4
+
+[node name="rock" type="Sprite" parent="gfx_timer"]
+
+transform/pos = Vector2( 17.434, 15.0969 )
+texture = ExtResource( 9 )
 
 [connection signal="finished" from="bonus/pills_box/anim" to="bonus/pills_box" method="_on_anim_finished"]
 

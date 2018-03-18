@@ -39,6 +39,7 @@ func _fixed_process(delta):
 	set_pos(get_pos() + direction)
 	
 func hit():
+	ptr_game.play_sfx("hit")
 	flash()
 	ptr_game.shorten_player_body()
 	bonus = 0
@@ -47,6 +48,7 @@ func hit():
 	Input.start_joy_vibration(0, 0.5, 0.8, 0.5)
 
 func set_bonus(type):
+	ptr_game.play_sfx("pill")
 	ptr_game.reset_time_left()
 	ptr_game.bonus_increment(type)
 	ptr_game.change_terrain(type)
@@ -60,11 +62,13 @@ func set_bonus(type):
 	
 func set_dopamine():
 	ptr_game.score_increment(1)
+	ptr_game.play_sfx("dopamine")
 	
 func flash():
 	ptr_anim.play("flash")
 	
 func push_form_safe_zone():
+	ptr_game.play_sfx("hit")
 	var _pos = int(get_pos().x)
 	if _pos < Globals.get("CONFIG/HALF_WIDTH"):
 		target.x += 32

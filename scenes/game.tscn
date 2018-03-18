@@ -1,8 +1,53 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://code/game.gd" type="Script" id=1]
-[ext_resource path="res://scenes/side_panel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/sounds/game.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/game.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/sounds/coin.wav" type="Sample" id=3]
+[ext_resource path="res://assets/sounds/take.wav" type="Sample" id=4]
+[ext_resource path="res://assets/sounds/hit.wav" type="Sample" id=5]
+[ext_resource path="res://assets/sounds/pickup_box.wav" type="Sample" id=6]
+[ext_resource path="res://assets/sounds/box_jump.wav" type="Sample" id=7]
+[ext_resource path="res://assets/sounds/push.wav" type="Sample" id=8]
+[ext_resource path="res://scenes/side_panel.tscn" type="PackedScene" id=9]
+
+[sub_resource type="SampleLibrary" id=1]
+
+samples/coin = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 3 )
+}
+samples/dopamine = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/hit = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/pickup_box = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
+samples/pill = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 7 )
+}
+samples/push = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
 
 [node name="game" type="Control"]
 
@@ -46,6 +91,34 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
+[node name="music" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 2 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="sfx" type="SamplePlayer" parent="."]
+
+config/polyphony = 1
+config/samples = SubResource( 1 )
+default/volume_db = 0.0
+default/pitch_scale = 1.0
+default/pan = 0.0
+default/depth = 0.0
+default/height = 0.0
+default/filter/type = 0
+default/filter/cutoff = 5000.0
+default/filter/resonance = 1.0
+default/filter/gain = 1.0
+default/reverb_room = 2
+default/reverb_send = 0.0
+default/chorus_send = 0.0
+
 [node name="background" type="Control" parent="."]
 
 focus/ignore_mouse = false
@@ -73,18 +146,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="side_panel" parent="." instance=ExtResource( 2 )]
-
-[node name="music" type="StreamPlayer" parent="."]
-
-stream/stream = ExtResource( 3 )
-stream/play = false
-stream/loop = true
-stream/volume_db = 0.0
-stream/autoplay = true
-stream/paused = false
-stream/loop_restart_time = 0.0
-stream/buffering_ms = 500
+[node name="side_panel" parent="." instance=ExtResource( 9 )]
 
 [connection signal="input_event" from="." to="." method="_on_game_input_event"]
 

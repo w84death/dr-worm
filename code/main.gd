@@ -8,7 +8,7 @@ func _ready():
 	go_to_menu()
 
 func set_globals():
-	Globals.set("GAME/VERSION", "BETA 1")
+	Globals.set("GAME/VERSION", "BETA 2")
 	
 	Globals.set("CONFIG/WIDTH", 160)
 	Globals.set("CONFIG/HEIGHT", 150)
@@ -20,8 +20,8 @@ func set_globals():
 	Globals.set("GAME/DEADLINE_TIME_SEC", 4)
 	Globals.set("GAME/PLAYER_HP_ON_START", 3)
 	Globals.set("GAME/DIFFICULTY", 0)
-	Globals.set("GAME/DIFF_EASY_TIME_SEC", 6)
-	Globals.set("GAME/DIFF_HARD_TIME_SEC", 2)
+	Globals.set("GAME/DIFF_EASY_TIME_SEC", 8)
+	Globals.set("GAME/DIFF_HARD_TIME_SEC", 4)
 	Globals.set("GAME/DIFF_EASY_SCORE_BONUS", 1)
 	Globals.set("GAME/DIFF_HARD_SCORE_BONUS", 100)
 	Globals.set("GAME/LAST_SCORE", 0)
@@ -35,17 +35,25 @@ func go_to_menu():
 # CHANGE_LOG___
 # 
 # _____
-# TODO___
+# TODO_(beta3)___
 # - scoreboard scene
 # - hiscore entering 
+# - combos (3x)
+# - balancing game
+#
 # _________
 # RELEASED___
+#
+# beta2___
+# - pimped menus (logo/bg)
+# - game sfx
+# - mirrored bacgrounds
 #
 # beta1___
 # - bonus panel working  
 # - coins to collect
 # - 3x same bonus = coins mode
-# - removed timer
+# - removed visual timer
 # - deadline generates obstacle (rock) on safezone
 #
 # alpha8___
