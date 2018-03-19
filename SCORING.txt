@@ -1,0 +1,12 @@
+ULTRA 6000 SCORING WHITE PAPER
+------------------------------
+
+
+# | ITEM         | PTS   |
+# |==============+=======|
+# | rand pill    | 00008 |
+# | double pill  | 00032 |
+# | triplle pill | 00128 |
+# | 3x rand pill | 00064 |
+# | dopamines    | 00032 |
+# | rocks spawn  | 00016 |

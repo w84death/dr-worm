@@ -61,7 +61,7 @@ func set_bonus(type):
 	ptr_game.bonus_update(bonus)
 	
 func set_dopamine():
-	ptr_game.score_increment(1)
+	ptr_game.score_increment("dopamine")
 	ptr_game.play_sfx("dopamine")
 	
 func flash():

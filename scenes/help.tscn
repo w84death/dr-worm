@@ -1,0 +1,537 @@
+[gd_scene load_steps=14 format=1]
+
+[ext_resource path="res://scenes/grassland.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/vibrate_animation.tres" type="Animation" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/pills.png" type="Texture" id=4]
+[ext_resource path="res://assets/coin.png" type="Texture" id=5]
+[ext_resource path="res://assets/rocks.png" type="Texture" id=6]
+[ext_resource path="res://assets/strip.png" type="Texture" id=7]
+[ext_resource path="res://code/scoreboard_menu.gd" type="Script" id=8]
+[ext_resource path="res://assets/sounds/menu.ogg" type="AudioStream" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[node name="help" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="background" type="Control" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="terrain" parent="background" instance=ExtResource( 1 )]
+
+rect/rotation = 180.0
+margin/left = 200.0
+margin/top = 150.0
+margin/right = 240.0
+margin/bottom = 190.0
+
+[node name="center" type="CenterContainer" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+use_top_left = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="pin" type="Control" parent="center"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 75.0
+margin/right = 100.0
+margin/bottom = 75.0
+
+[node name="anim" type="AnimationPlayer" parent="center/pin"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/vibrate_animation = ExtResource( 2 )
+playback/active = true
+playback/speed = 4.0
+blend_times = [  ]
+autoplay = "vibrate_animation"
+
+[node name="main" type="Panel" parent="center/pin"]
+
+rect/min_size = Vector2( 128, 80 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+margin/left = -64.0
+margin/top = -59.0
+margin/right = 64.0
+margin/bottom = 71.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="title" type="Panel" parent="center/pin/main"]
+
+rect/min_size = Vector2( 96, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 3 )
+margin/left = 16.0
+margin/top = -14.0
+margin/right = 112.0
+margin/bottom = 10.0
+
+[node name="codename" type="Label" parent="center/pin/main/title"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 1
+text = "SCORING"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="info" type="Control" parent="center/pin/main"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 125.0
+margin/bottom = 91.0
+
+[node name="Sprite" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 14, 36 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite1" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 14, 52 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite6 2" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 14, 72 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite3" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 38, 52 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite6 3" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 38, 72 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite4" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 62, 52 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite6" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 62, 72 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite5" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 86, 52 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite6 4" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 86, 72 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite2" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 18, 56 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite6 5" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 18, 76 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite66" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 22, 80 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite67" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 14, 19 )
+texture = ExtResource( 4 )
+hframes = 4
+
+[node name="Sprite3 2" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 42, 56 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite37 3" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 38, 36 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite35 3" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 42, 76 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite354" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 46, 80 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite33" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 66, 56 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite37 2" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 62, 36 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite35 2" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 66, 76 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite353" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 70, 80 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite356" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 22, 19 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 2
+
+[node name="Sprite34" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 90, 56 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite37" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 86, 36 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite35" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 90, 76 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite36" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 94, 80 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 3
+
+[node name="Sprite355" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 30, 19 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="Sprite357" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 100, 19 )
+texture = ExtResource( 5 )
+frame = 1
+
+[node name="Sprite358" type="Sprite" parent="center/pin/main/info"]
+
+transform/pos = Vector2( 67, 17 )
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 106.0
+margin/top = 32.0
+margin/right = 114.0
+margin/bottom = 40.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "8"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label1" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 106.0
+margin/top = 52.0
+margin/right = 120.0
+margin/bottom = 60.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "32"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label2" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 106.0
+margin/top = 72.0
+margin/right = 126.0
+margin/bottom = 80.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "128"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label3" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 40.0
+margin/top = 16.0
+margin/right = 54.0
+margin/bottom = 24.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "64"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label4" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 107.0
+margin/top = 15.0
+margin/right = 121.0
+margin/bottom = 23.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "32"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label5" type="Label" parent="center/pin/main/info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 79.0
+margin/top = 15.0
+margin/right = 93.0
+margin/bottom = 23.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+text = "2"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="blob" type="Patch9Frame" parent="center/pin/main"]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -6.0
+margin/top = 91.0
+margin/right = 134.0
+margin/bottom = 123.0
+texture = ExtResource( 7 )
+patch_margin/left = 16
+patch_margin/top = 16
+patch_margin/right = 16
+patch_margin/bottom = 16
+
+[node name="menu" type="VButtonArray" parent="center/pin/main/blob"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/selected = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/button_separator = 8
+flat = true
+button/count = 1
+button/min_button_size = -1.0
+button/align = 1
+button/0/text = "< MENU"
+button/0/tooltip = ""
+button/0/icon = null
+button/selected = 0
+script/script = ExtResource( 8 )
+
+[node name="music" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 9 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[connection signal="input_event" from="center/pin/main/blob/menu" to="center/pin/main/blob/menu" method="_on_menu_input_event"]
+
+

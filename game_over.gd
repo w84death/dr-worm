@@ -8,7 +8,7 @@ const MENU_RESTART = 0
 const MENU_BACK = 1
 
 func _ready():
-	self.grab_focus()
+	pass
 
 func _on_menu_input_event( ev ):
 	if Input.is_key_pressed(KEY_ESCAPE): go_back()

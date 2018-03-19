@@ -10,6 +10,7 @@ onready var scenes = {
 	obstacle = preload("res://scenes/rock.tscn"),
 	bonus = preload("res://scenes/bonuses.tscn"),
 	dopamine = preload("res://scenes/dopamine.tscn"),
+	plus_points = preload("res://scenes/plus_points.tscn"),
 	grassland = preload("res://scenes/grassland.tscn"),
 	waterland = preload("res://scenes/waterland.tscn")}
 
@@ -32,7 +33,6 @@ var length = 0
 var time_left = 0
 var difficulty_time = 0
 var protection = true
-var score_bonus = 1
 var dopamine_spawning = false
 var obstacle_spawning = false
 
@@ -50,6 +50,7 @@ func init_game():
 	ptr.timer_bonus.start()
 	ptr.timer_deadline.start()
 	ptr.timer_dopamine.set_wait_time(Globals.get("GAME/DOPAMINE_TIME_SEC"))
+	ptr.pills_box.set_game_ptr(self)
 	reset_time_left()
 	for p in range(Globals.get("GAME/PLAYER_HP_ON_START")): extend_player_body()
 
@@ -77,10 +78,8 @@ func set_map_type(type):
 func set_difficulty(diff):
 	if diff == 0: 
 		difficulty_time = Globals.get("GAME/DIFF_EASY_TIME_SEC")
-		score_bonus = Globals.get("GAME/DIFF_EASY_SCORE_BONUS")
 	if diff == 1: 
 		difficulty_time = Globals.get("GAME/DIFF_HARD_TIME_SEC")
-		score_bonus = Globals.get("GAME/DIFF_HARD_SCORE_BONUS")
 
 func spawn_player(x, y):
 	var new_player = scenes.player.instance()
@@ -142,23 +141,24 @@ func spawn_obstacle(new_x):
 func spawn_obstacles():
 	spawn_obstacle(8)
 	spawn_obstacle(Globals.get("CONFIG/WIDTH")-8)
+	score_increment("rock")
 	
 func game_over():
 	get_tree().change_scene("res://scenes/game_over.tscn")
 
 func bonus_increment(id):
-	score_increment(score_bonus)
 	ptr.pills_box.add_pill(id)
 	if ptr.pills_box.is_perfect(): start_dopamine_bonus()
 
-func score_increment(amount):
-	score += amount
+func score_increment(name):
+	var inc = Globals.get("GAME/SCORE/"+name)
+	spawn_plus_points(name, inc)
+	score += inc
 	Globals.set("GAME/LAST_SCORE", score)
 	ptr.side_panel.get_node("score/score").set_text(str(score))
 	
 func bonus_update(no):
 	if no == 0: ptr.pills_box.reset_box()
-
 
 func remove_me(trash):
 	ptr.terrain.remove_child(trash)
@@ -196,3 +196,12 @@ func _on_timer_dopamine_timeout():
 	
 func play_sfx(name):
 	ptr.sfx.play(name)
+
+func spawn_plus_points(name, points):
+	var new_pp = scenes.plus_points.instance()
+	var offset_y = 0
+	if name == "dopamine": offset_y -= 32
+	new_pp.set_pos(Vector2(Globals.get("CONFIG/HALF_WIDTH")-17, Globals.get("CONFIG/HEIGHT")/2-offset_y))
+	new_pp.set_pts(name, points)
+	new_pp.set_game_ptr(self)
+	ptr.terrain.add_child(new_pp)
