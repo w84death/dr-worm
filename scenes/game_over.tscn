@@ -178,7 +178,7 @@ flat = true
 button/count = 2
 button/min_button_size = -1.0
 button/align = 1
-button/0/text = "PLAY AGAIN"
+button/0/text = "OR PLAY AGAIN"
 button/0/tooltip = ""
 button/0/icon = null
 button/1/text = "< MENU"
@@ -200,21 +200,64 @@ stream/buffering_ms = 500
 
 [node name="nick" type="LineEdit" parent="center/panel"]
 
+rect/min_size = Vector2( 40, 0 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 26.0
-margin/top = 16.0
-margin/right = 108.0
-margin/bottom = 34.0
-placeholder/text = "TYPE NICK"
+margin/left = 40.0
+margin/top = 11.0
+margin/right = 120.0
+margin/bottom = 29.0
+placeholder/text = "ABCDE"
 placeholder/alpha = 0.6
 max_length = 5
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 script/script = ExtResource( 7 )
+
+[node name="_nick" type="Label" parent="center/panel"]
+
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 8.0
+margin/top = 83.0
+margin/right = 88.0
+margin/bottom = 75.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "NAME:"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="hint" type="Label" parent="center/panel"]
+
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 13.0
+margin/top = 66.0
+margin/right = 11.0
+margin/bottom = 58.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "HIT ENTER TO SAVE"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="score" type="Panel" parent="center"]
 

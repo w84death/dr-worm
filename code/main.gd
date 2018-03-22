@@ -10,7 +10,7 @@ func _ready():
 	go_to_menu()
 
 func set_globals():
-	Globals.set("GAME/VERSION", "BETA 3")
+	Globals.set("GAME/VERSION", "BETA 3.99")
 	
 	Globals.set("CONFIG/WIDTH", 160)
 	Globals.set("CONFIG/HEIGHT", 150)
@@ -64,44 +64,56 @@ func init_scores():
 # TODO_(beta4)___
 # - hiscore entering 
 # - combos (double 3x)
+# - black-and-white monitors frendly
 #
 # _________
 # RELEASED___
 #
+# beta3.1___
+# - fix tripple scoring bug
+# - fix dopamine points shows on different Y offset
+#
 # beta3___
-# - hiscore system
-# - scoreboard scene
-# - placeholder nick saving scene
-# - balancing game / new score system
-# - help scene
+# - add hiscore system
+# - add scoreboard scene
+# - add placeholder nick saving scene
+# - fix balancing game / new score system
+# - add help scene
 #
 # beta2___
-# - pimped menus (logo/bg)
-# - game sfx
-# - mirrored bacgrounds
+# - add pimped menus (logo/bg)
+# - add game sfx
+# - fix mirrored bacgrounds
 #
 # beta1___
-# - bonus panel working  
-# - coins to collect
-# - 3x same bonus = coins mode
-# - removed visual timer
-# - deadline generates obstacle (rock) on safezone
+# - add bonus panel working  
+# - add coins to collect
+# - add 3x same bonus = coins mode
+# - fix removed visual timer
+# - add deadline generates obstacle (rock) on safezone
 #
 # alpha8___
-# - new bonuses sprites
-# - panel shows bonus load
-# - terrain changes colour by pills
-# - menu sounds
-# - background music
-# - animated menus
-# - new menu sprites
-# - new in game GUI
+# - add new bonuses sprites
+# - add panel shows bonus load
+# - add terrain changes colour by pills
+# - add menu sounds
+# - add background music
+# - add animated menus
+# - add new menu sprites
+# - add new in game GUI
 #
 # alpha7___
-# - deadline time
-# - 3 pills to grow
-# - pills and enemy timebased spawners
+# - add deadline time
+# - add 3 pills to grow
+# - add pills and enemy timebased spawners
 #
 # alpha6___
-# - snake tail physics
-#
+# - add snake tail physics
+# 
+# older___
+# - game prototype
+# - core game graphics
+# - code gameplay
+
+
+# eof

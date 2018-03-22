@@ -7,6 +7,7 @@ onready var scenes = {
 	player = preload("res://scenes/worm.tscn"),
 	player_body = preload("res://scenes/worm_body.tscn"),
 	enemy = preload("res://scenes/bug.tscn"),
+	enemy2 = preload("res://scenes/fish.tscn"),
 	obstacle = preload("res://scenes/rock.tscn"),
 	bonus = preload("res://scenes/bonuses.tscn"),
 	dopamine = preload("res://scenes/dopamine.tscn"),
@@ -113,7 +114,11 @@ func shorten_player_body():
 	
 func spawn_enemy(new_x):
 	new_x += Globals.get("CONFIG/LEFT_MARGIN")
-	var new_enemy = scenes.enemy.instance()
+	var new_enemy
+	if Globals.get("GAME/MAP_TYPE") == 1:
+		new_enemy = scenes.enemy2.instance()
+	else:
+		new_enemy = scenes.enemy.instance()
 	new_enemy.set_pos(Vector2(new_x, -16))
 	new_enemy.set_game_ptr(self)
 	ptr.terrain.add_child(new_enemy)

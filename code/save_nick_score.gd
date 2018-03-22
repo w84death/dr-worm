@@ -5,7 +5,7 @@ func _ready():
 
 func save_and_go():
 	var nick = get_text()
-	if nick == '': nick = 'ANONYMOUS'
+	if nick == '': nick = 'ANON'
 	save_score(nick, Globals.get("GAME/LAST_SCORE"))
 	get_tree().change_scene("res://scenes/scoreboard.tscn")
 

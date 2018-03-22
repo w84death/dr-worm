@@ -10,3 +10,10 @@ ULTRA 6000 SCORING WHITE PAPER
 # | 3x rand pill | 00064 |
 # | dopamines    | 00032 |
 # | rocks spawn  | 00016 |
+
+
+
+var output = []
+OS.execute( 'grep', ['-Irn', 'pattern', '.'], true, output )
+for line in output:
+    print( line )

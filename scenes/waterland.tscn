@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://assets/water0.png" type="Texture" id=1]
+[ext_resource path="res://code/waterland.gd" type="Script" id=1]
 [ext_resource path="res://assets/water1.png" type="Texture" id=2]
-[ext_resource path="res://assets/water2.png" type="Texture" id=3]
+[ext_resource path="res://assets/water0.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 
@@ -11,51 +11,50 @@ length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:transform/pos")
+tracks/0/path = NodePath(".:region_rect")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
 "times": FloatArray( 0, 1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -32 ), Vector2( 0, 0 ) ]
+"values": [ Rect2( 0, 32, 200, 150 ), Rect2( 0, 0, 200, 150 ) ]
 }
 
 [sub_resource type="Animation" id=2]
 
-resource/name = "right - down"
+resource/name = "fly"
 length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:transform/pos")
+tracks/0/path = NodePath(".:region_rect")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
 "times": FloatArray( 0, 1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -32, -32 ), Vector2( 0, 0 ) ]
+"values": [ Rect2( -32, 32, 200, 150 ), Rect2( 0, 0, 200, 150 ) ]
 }
 
 [sub_resource type="Animation" id=3]
 
-resource/name = "left-down"
 length = 1.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:transform/pos")
+tracks/0/path = NodePath(".:region_rect")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
 "times": FloatArray( 0, 1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -32, -32 ), Vector2( -64, 0 ) ]
+"values": [ Rect2( 0, 32, 200, 182 ), Rect2( 0, 0, 200, 182 ) ]
 }
 
-[node name="waterland" type="Control"]
+[node name="terrain" type="Control"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -65,71 +64,69 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
+script/script = ExtResource( 1 )
 
-[node name="water0" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 0, -23.1731 )
-texture = ExtResource( 1 )
+visibility/blend_mode = 3
+texture = ExtResource( 2 )
 centered = false
+flip_h = true
 region = true
-region_rect = Rect2( 0, 0, 200, 182 )
+region_rect = Rect2( 7.4633, 7.4633, 200, 150 )
 
-[node name="anim1" type="AnimationPlayer" parent="water0"]
+[node name="anim1" type="AnimationPlayer" parent="Sprite"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/fly = SubResource( 1 )
+"anims/fly (copy)" = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "fly (copy)"
+
+[node name="Sprite1" type="Sprite" parent="."]
+
+editor/display_folded = true
+visibility/opacity = 0.05
+visibility/blend_mode = 3
+texture = ExtResource( 2 )
+centered = false
+flip_v = true
+region = true
+region_rect = Rect2( 7.4633, 7.4633, 200, 150 )
+
+[node name="anim1" type="AnimationPlayer" parent="Sprite1"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+"anims/fly (copy) (copy)" = SubResource( 2 )
+playback/active = true
+playback/speed = -1.0
+blend_times = [  ]
+autoplay = "fly (copy) (copy)"
+
+[node name="Sprite 2" type="Sprite" parent="."]
+
+editor/display_folded = true
+visibility/blend_mode = 1
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 200, 150 )
+
+[node name="anim1" type="AnimationPlayer" parent="Sprite 2"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/fly = SubResource( 3 )
 playback/active = true
 playback/speed = 3.0
 blend_times = [  ]
 autoplay = "fly"
-
-[node name="water1" type="Sprite" parent="."]
-
-editor/display_folded = true
-visibility/opacity = 0.15
-visibility/blend_mode = 1
-transform/pos = Vector2( -22.858, -22.858 )
-texture = ExtResource( 2 )
-centered = false
-region = true
-region_rect = Rect2( 0, 0, 232, 212 )
-
-[node name="anim" type="AnimationPlayer" parent="water1"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/fly = SubResource( 1 )
-"anims/right - down" = SubResource( 2 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = "right - down"
-
-[node name="water2" type="Sprite" parent="."]
-
-editor/display_folded = true
-visibility/opacity = 0.15
-visibility/blend_mode = 1
-transform/pos = Vector2( -32, -32 )
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 0, 0, 264, 212 )
-
-[node name="anim" type="AnimationPlayer" parent="water2"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/fly = SubResource( 1 )
-anims/left-down = SubResource( 3 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = "left-down"
 
 
